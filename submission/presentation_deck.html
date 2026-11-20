@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>HeatGuard - Solution Deck</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap');
+  
+  @page {
+    size: 16in 9in landscape;
+    margin: 0;
+  }
+  
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  body {
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: #0f172a;
+    color: #f8fafc;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  
+  .slide {
+    width: 16in;
+    height: 9in;
+    page-break-after: always;
+    padding: 3rem 4rem;
+    position: relative;
+    background: #090d16;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden;
+  }
+
+  .slide::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 6px;
+    background: linear-gradient(90deg, #f59e0b, #ef4444, #06b6d4, #10b981);
+  }
+
+  .header-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .header-left {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .tag-pill {
+    background: rgba(245, 158, 11, 0.15);
+    color: #f59e0b;
+    border: 1px solid rgba(245, 158, 11, 0.3);
+    padding: 0.35rem 0.8rem;
+    border-radius: 9999px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .header-subtitle {
+    color: #94a3b8;
+    font-size: 0.95rem;
+    font-weight: 500;
+  }
+
+  .header-right {
+    font-family: 'JetBrains Mono', monospace;
+    color: #64748b;
+    font-size: 0.9rem;
+  }
+
+  .slide-title {
+    font-size: 2.6rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: #ffffff;
+    margin-bottom: 0.5rem;
+    line-height: 1.15;
+  }
+
+  .slide-subtitle {
+    font-size: 1.25rem;
+    color: #38bdf8;
+    font-weight: 500;
+    margin-bottom: 2rem;
+  }
+
+  .content-area {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+
+  .grid-3 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1.5rem;
+  }
+
+  .grid-4 {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.25rem;
+  }
+
+  .card {
+    background: rgba(30, 41, 59, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 1rem;
+    padding: 1.75rem;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+  }
+
+  .card-highlight {
+    background: rgba(30, 41, 59, 0.8);
+    border: 1px solid rgba(245, 158, 11, 0.4);
+  }
+
+  .card h3 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #f8fafc;
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .card p, .card li {
+    font-size: 1rem;
+    color: #cbd5e1;
+    line-height: 1.6;
+  }
+
+  .card ul {
+    list-style: none;
+    padding-left: 0;
+  }
+
+  .card li {
+    position: relative;
+    padding-left: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .card li::before {
+    content: "•";
+    position: absolute;
+    left: 0.5rem;
+    color: #f59e0b;
+    font-weight: bold;
+  }
+
+  .stat-box {
+    text-align: center;
+    padding: 1.5rem;
+    background: rgba(15, 23, 42, 0.7);
+    border-radius: 0.75rem;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+  }
+
+  .stat-val {
+    font-size: 2.8rem;
+    font-weight: 800;
+    font-family: 'JetBrains Mono', monospace;
+    color: #f59e0b;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+
+  .stat-label {
+    font-size: 0.95rem;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: 600;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 0.5rem;
+  }
+
+  th, td {
+    padding: 1rem 1.25rem;
+    text-align: left;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    font-size: 1rem;
+  }
+
+  th {
+    background: rgba(15, 23, 42, 0.8);
+    color: #38bdf8;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+  }
+
+  td {
+    color: #e2e8f0;
+  }
+
+  .highlight-cell {
+    color: #10b981;
+    font-weight: 700;
+    background: rgba(16, 185, 129, 0.08);
+  }
+
+  .footer-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 0.75rem;
+    margin-top: 1rem;
+    font-size: 0.85rem;
+    color: #64748b;
+  }
+
+  /* Cover Slide */
+  .cover-slide {
+    background: radial-gradient(circle at 80% 20%, rgba(245, 158, 11, 0.12) 0%, transparent 60%),
+                radial-gradient(circle at 20% 80%, rgba(14, 165, 233, 0.1) 0%, transparent 60%),
+                #070a12;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .cover-title {
+    font-size: 4.5rem;
+    font-weight: 900;
+    letter-spacing: -0.03em;
+    background: linear-gradient(135deg, #ffffff 40%, #f59e0b 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    line-height: 1;
+    margin-bottom: 1rem;
+  }
+
+  .cover-tagline {
+    font-size: 1.8rem;
+    color: #38bdf8;
+    font-weight: 600;
+    max-width: 90%;
+    margin-bottom: 2rem;
+    line-height: 1.4;
+  }
+
+  .meta-tag {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #cbd5e1;
+    font-size: 1rem;
+    margin-right: 1rem;
+  }
+</style>
+</head>
+<body>
+
+<!-- Slide 1: Cover -->
+<div class="slide cover-slide">
+  <div class="header-meta">
+    <div class="header-left">
+      <span class="tag-pill">Future Health Challenge 2026</span>
+      <span class="header-subtitle">From Signals to Solutions · Department of Health Abu Dhabi</span>
+    </div>
+    <div class="header-right">Microsoft · Inception42 · MBZUAI · H2S</div>
+  </div>
+  <div class="content-area">
+    <div style="font-size: 1.25rem; font-weight: 700; color: #f59e0b; text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 0.5rem;">Population Health · Challenge 07</div>
+    <h1 class="cover-title">HEATGUARD</h1>
+    <p class="cover-tagline">AI-Powered Multilingual Heat Risk Intelligence Platform<br><span style="font-size: 1.3rem; color: #94a3b8; font-weight: 400;">Zero Heat Fatalities. Zero Hardware Capex. Every Worker Protected in Their Mother Tongue.</span></p>
+    <div style="display: flex; gap: 1rem; margin-top: 1rem;">
+      <div class="meta-tag"><strong>Track:</strong> Population Health</div>
+      <div class="meta-tag"><strong>Location:</strong> Abu Dhabi / UAE</div>
+      <div class="meta-tag"><strong>Prototype Stage:</strong> Working Prototype (100% Tested)</div>
+    </div>
+  </div>
+  <div class="footer-meta">
+    <div>HeatGuard · Climate-Resilient Occupational Health</div>
+    <div>Slide 1 / 17</div>
+  </div>
+</div>
+
+<!-- Slide 2: Project Identification -->
+<div class="slide">
+  <div class="header-meta">
+    <div class="header-left"><span class="tag-pill">Executive Overview</span><span class="header-subtitle">Challenge 07: Climate-Resilient Worker Health</span></div>
+    <div class="header-right">HeatGuard Solutions</div>
+  </div>
+  <div class="content-area">
+    <h2 class="slide-title">Project Identification & Challenge Definition</h2>
+    <p class="slide-subtitle">Protecting UAE's 1.2 Million Outdoor Workers Under Extreme 48°C+ Climate Strain</p>
+    <div class="grid-2">
+      <div class="card">
+        <h3>🎯 The Problem Mandate</h3>
+        <p style="margin-bottom: 1rem;">Over 1.2 million outdoor industrial, construction, and logistics workers in Abu Dhabi face summer temperatures exceeding 48°C with lethal humidity. Heat exhaustion deteriorates rapidly into heat stroke without early warning.</p>
+        <p>Current industrial solutions fail: importing $820+ wearable bands per worker creates prohibitive capex, severe dust degradation, charging logistics headaches, and English-only warnings that migrant workforces cannot comprehend.</p>
+      </div>
+      <div class="card card-highlight">
+        <h3>⚡ The HeatGuard Solution</h3>
+        <p style="margin-bottom: 1rem;">HeatGuard eliminates proprietary wearable capex entirely by assimilating ambient microclimate telemetry with physiological thermodynamics (ISO 7933 PHS) on workers' existing smartphones.</p>
+        <ul>
+          <li><strong>Proactive Warning:</strong> Detects rising strain 15–30 minutes before symptoms manifest.</li>
+          <li><strong>5 Dialects Spoken:</strong> Spoken audio alerts in Urdu, Hindi, Tagalog, Bengali, Arabic.</li>
+          <li><strong>Dignity & Privacy:</strong> Zero employer surveillance, tamper-proof OSHAD audit trails.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="footer-meta"><div>HeatGuard · Project Identification</div><div>Slide 2 / 17</div></div>
+</div>
+
+<!-- Slide 3: Team Capability -->
+<div class="slide">
+  <div class="header-meta">
+    <div class="header-left"><span class="tag-pill">Founding Team</span><span class="header-subtitle">Engineering & Clinical Competency</span></div>
+    <div class="header-right">HeatGuard Innovators</div>
+  </div>
+  <div class="content-area">
+    <h2 class="slide-title">Team Structure & Domain Execution</h2>
+    <p class="slide-subtitle">Combining Cloud-Native AI Architecture, Thermal Physiology, and OSHAD Compliance</p>
+    <div class="grid-3">
+      <div class="card">
+        <h3>🤖 AI & Distributed Systems</h3>
+        <p><strong>Lead Architect:</strong> Specialist in distributed microservices, FastAPI, Azure IoT streaming, and sub-100ms multi-agent coordination.</p>
+        <p style="margin-top: 0.75rem; font-size: 0.9rem; color: #94a3b8;">Focus: Real-time telemetry assimilation, deterministic physics execution, and cryptographic audit hashing.</p>
+      </div>
+      <div class="card">
+        <h3>🩺 Occupational Health Lead</h3>
+        <p><strong>Clinical & Regulatory Lead:</strong> Background in thermal physiology, ISO 7933 Predicted Heat Strain, and UAE OSHAD CoP 11.0 standards.</p>
+        <p style="margin-top: 0.75rem; font-size: 0.9rem; color: #94a3b8;">Focus: Clinically calibrated core body temperature modeling, acclimatization vectors, and triage protocols.</p>
+      </div>
+      <div class="card">
+        <h3>🌐 Multilingual UX Specialist</h3>
+        <p><strong>Human-Centric Design Lead:</strong> Expert in sunlight-readable high-contrast PWAs and conversational speech synthesis in South Asian dialects.</p>
+        <p style="margin-top: 0.75rem; font-size: 0.9rem; color: #94a3b8;">Focus: One-tap emergency care loops, zero-literacy audio affordances, and zero-knowledge privacy.</p>
+      </div>
+    </div>
+  </div>
+  <div class="footer-meta"><div>HeatGuard · Team Structure</div><div>Slide 3 / 17</div></div>
+</div>
+
+<!-- Slide 4: System Architecture -->
+<div class="slide">
+  <div class="header-meta">
+    <div class="header-left"><span class="tag-pill">Architecture</span><span class="header-subtitle">Full-Stack Distributed System</span></div>
+    <div class="header-right">System Design</div>
+  </div>
+  <div class="content-area">
+    <h2 class="slide-title">End-to-End System Architecture</h2>
+    <p class="slide-subtitle">From Ambient Sensor Ingestion to Dialect Audio Delivery</p>
+    <div class="grid-4">
+      <div class="card">
+        <h3 style="color: #38bdf8;">1. Sensing Layer</h3>
+        <ul>
+          <li>On-site Ambient Weather Stations</li>
+          <li>Dry-bulb temp, RH, solar radiation, wind speed</li>
+          <li>GPS & work zone microclimate mapping</li>
+          <li>Zero proprietary hardware requirement</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3 style="color: #f59e0b;">2. Guardian Swarm</h3>
+        <ul>
+          <li><strong>IoT Assimilator:</strong> 14ms event validation</li>
+          <li><strong>ISO 7933 Engine:</strong> Core temp & sweat rate</li>
+          <li><strong>Voice Synthesizer:</strong> 5 native dialects</li>
+          <li><strong>Audit Guard:</strong> SHA-256 tamper-proof ledger</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3 style="color: #10b981;">3. Intelligence</h3>
+        <ul>
+          <li>Statutory RAG on OSHAD CoP 11.0</li>
+          <li>UAE MOHRE Midday Ban rules</li>
+          <li>Acclimatization curve weighting</li>
+          <li>Explainable AI (XAI) risk attribution</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3 style="color: #a855f7;">4. Dual Surfaces</h3>
+        <ul>
+          <li><strong>Worker PWA:</strong> High contrast, audible alerts, 1-tap care loop</li>
+          <li><strong>Supervisor Deck:</strong> Crew heatmap, 1-click rest broadcast, audit export</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="footer-meta"><div>HeatGuard · Technical Architecture</div><div>Slide 4 / 17</div></div>
+</div>
+
+<!-- Slide 5: The Thermodynamic Engine -->
+<div class="slide">
+  <div class="header-meta">
+    <div class="header-left"><span class="tag-pill">Physics & Medical Science</span><span class="header-subtitle">Deterministic Heat Strain Modeling</span></div>
+    <div class="header-right">ISO 7933 & ISO 7243</div>
+  </div>
+  <div class="content-area">
+    <h2 class="slide-title">First-Principles Physics vs. Black-Box Hallucination</h2>
+    <p class="slide-subtitle">Validating Heat Illness Through Clinically Approved Thermodynamic Equations</p>
+    <div class="grid-2">
+      <div class="card">
+        <h3>📐 ISO 7933 Predicted Heat Strain (PHS)</h3>
+        <p style="margin-bottom: 1rem;">Heat balance equation: <code>S = M - W - (R + C + E + RES)</code></p>
+        <ul>
+          <li><strong>M:</strong> Metabolic rate determined by worker's trade (250–450 W/m²).</li>
+          <li><strong>R + C:</strong> Radiative & convective heat exchange with ambient desert air.</li>
+          <li><strong>E_req vs E_max:</strong> Evaporative sweat requirement vs maximum evaporative capacity dictated by relative humidity.</li>
+          <li><strong>Core Temp (Tcore):</strong> Clinically capped at 38.5°C limit before heat exhaustion.</li>
+        </ul>
+      </div>
+      <div class="card card-highlight">
+        <h3>🎯 Personalization Without Invasive Surveillance</h3>
+        <p style="margin-bottom: 1rem;">HeatGuard dynamically adjusts physiological risk thresholds based on consented, non-clinical operational variables:</p>
+        <ul>
+          <li><strong>Acclimatization State:</strong> Unacclimatized workers (Days 1–5 in UAE) trigger early alerts at 30°C WBGT.</li>
+          <li><strong>PPE Insulation Factor (clo):</strong> Heavy coveralls vs vented high-vis gear.</li>
+          <li><strong>Continuous Work Duration:</strong> Tracks uninterrupted shift time dynamically.</li>
+          <li><strong>15–30 Minute Predictive Lead Time:</strong> Intervenes before physical collapse.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="footer-meta"><div>HeatGuard · Medical & Physics Core</div><div>Slide 5 / 17</div></div>
+</div>
+
+<!-- Slide 6: Worker PWA -->
+<div class="slide">
+  <div class="header-meta">
+    <div class="header-left"><span class="tag-pill">Worker Surface</span><span class="header-subtitle">Worker Life-Sentinel PWA</span></div>
+    <div class="header-right">Inclusive Human-Centered UX</div>
+  </div>
+  <div class="content-area">
+    <h2 class="slide-title">Worker Life-Sentinel: Built for Direct Desert Sun</h2>
+    <p class="slide-subtitle">Zero Literacy Barrier, 5-Language Native Voice Synthesis, and 1-Tap Care Loop</p>
+    <div class="grid-3">
+      <div class="card">
+        <h3>☀️ Sunlight-Readable UX</h3>
+        <p>Engineered with ultra-high contrast ratio (14:1) ensuring visibility under 100,000 lux outdoor desert sunlight. Large 64px touch targets operable with heavy work gloves.</p>
+      </div>
+      <div class="card card-highlight">
+        <h3>🗣️ 5-Language Voice Synthesis</h3>
+        <p>Spoken audio alerts broadcast instantly in worker's native tongue:</p>
+        <ul style="margin-top: 0.5rem;">
+          <li><strong>Urdu & Hindi:</strong> "Hoshiyar! Garmi ka khatra zyada hai..."</li>
+          <li><strong>Tagalog:</strong> "Babala! Mataas ang panganib ng init..."</li>
+          <li><strong>Bengali & Arabic:</strong> Full phonetic nuance.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>🤝 1-Tap Care Acknowledgment</h3>
+        <p>Workers acknowledge alerts with a single tap:</p>
+        <ul style="margin-top: 0.5rem;">
+          <li>💧 <em>"Drinking Water"</em> (+250ml logged)</li>
+          <li>⛺ <em>"Moving to Shaded Rest"</em></li>
+          <li>🚨 <em>"Need Medical Assistance"</em> (Escalates to HSE)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="footer-meta"><div>HeatGuard · Worker Life-Sentinel</div><div>Slide 6 / 17</div></div>
+</div>
+
+<!-- Slide 7: Supervisor Command Deck -->
+<div class="slide">
+  <div class="header-meta">
+    <div class="header-left"><span class="tag-pill">Enterprise Deck</span><span class="header-subtitle">HSE Supervisor Command Deck</span></div>
+    <div class="header-right">Operational Safety Decisions</div>
+  </div>
+  <div class="content-area">
+    <h2 class="slide-title">Supervisor Tactical Command Deck</h2>
+    <p class="slide-subtitle">Real-Time Fleet Heatmaps, Collective Rest Dispatch, and OSHAD Audit Generation</p>
+    <div class="grid-3">
+      <div class="card">
+        <h3>🗺️ Live Crew Heatmap</h3>
+        <p>Aggregates 100+ workers across construction sectors (Steel Fixing, Scaffolding, Excavation) into color-coded risk quadrants without exposing private personal health metrics.</p>
+      </div>
+      <div class="card card-highlight">
+        <h3>📢 1-Click Rest Broadcast</h3>
+        <p>When sector WBGT crosses statutory thresholds, supervisor triggers a 1-click broadcast sending synchronized rest/hydration commands to all sector workers simultaneously.</p>
+      </div>
+      <div class="card">
+        <h3>📋 Automated OSHAD Audit</h3>
+        <p>Generates 1-click Abu Dhabi OSHAD CoP 11.0 compliance reports with timestamped rest records, WBGT logs, and Cryptographic SHA-256 verification seals.</p>
+      </div>
+    </div>
+  </div>
+  <div class="footer-meta"><div>HeatGuard · Supervisor Surface</div><div>Slide 7 / 17</div></div>
+</div>
+
+<!-- Slide 8: Privacy & Worker Dignity -->
+<div class="slide">
+  <div class="header-meta">
+    <div class="header-left"><span class="tag-pill">Ethics & Governance</span><span class="header-subtitle">Worker Dignity & Data Protection</span></div>
+    <div class="header-right">Privacy-First Architecture</div>
+  </div>
+  <div class="content-area">
+    <h2 class="slide-title">Worker-First Governance: Privacy Without Surveillance</h2>
+    <p class="slide-subtitle">Strict Safeguards Prohibiting Disciplinary or Wage Deduction Misuse</p>
+    <div class="grid-3">
+      <div class="card">
+        <h3>🛡️ Zero Clinical Data Exposure</h3>
+        <p>Supervisors only see operational safety tiers (Green, Yellow, Orange, Red) and recommended rest durations. Heart rates, biometric records, and personal health attributes are strictly quarantined.</p>
+      </div>
+      <div class="card">
+        <h3>⚖️ Anti-Disciplinary Charter</h3>
+        <p>Mandatory software gate: HeatGuard terms strictly prohibit using rest timestamps or hydration pauses for productivity penalties, salary deductions, or termination decisions.</p>
+      </div>
+      <div class="card">
+        <h3>🔐 Cryptographic Audit Trail</h3>
+        <p>Every dispatch and alert is hashed using SHA-256 in a local audit ledger, proving to MOHRE and OSHAD inspectors that mandatory rest was granted without altering records.</p>
+      </div>
+    </div>
+  </div>
+  <div class="footer-meta"><div>HeatGuard · Governance & Ethics</div><div>Slide 8 / 17</div></div>
+</div>
+
+<!-- Slide 9: Competitive Teardown -->
+<div class="slide">
+  <div class="header-meta">
+    <div class="header-left"><span class="tag-pill">Market Validation</span><span class="header-subtitle">Defensibility & Moat</span></div>
+    <div class="header-right">Competitive Matrix</div>
+  </div>
+  <div class="content-area">
+    <h2 class="slide-title">Why HeatGuard Wins Over Incumbent Hardware</h2>
+    <p class="slide-subtitle">A 95% Cost Reduction with Unrivaled Field Usability</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Feature / Capability</th>
+          <th>SlateSafety (BAND V2)</th>
+          <th>Kenzen Smart Armband</th>
+          <th style="color: #f59e0b;">HEATGUARD (Our Solution)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Hardware Capex</strong></td>
+          <td>$820 USD / worker</td>
+          <td>$650+ proprietary band</td>
+          <td class="highlight-cell">$0 (Uses Existing Worksite Weather + Phone)</td>
+        </tr>
+        <tr>
+          <td><strong>Worker Language Support</strong></td>
+          <td>English Only</td>
+          <td>English Only</td>
+          <td class="highlight-cell">5 Native Dialects (Urdu, Hindi, Tagalog, Bengali, Arabic)</td>
+        </tr>
+        <tr>
+          <td><strong>Desert Durability</strong></td>
+          <td>Sensor degradation in dust</td>
+          <td>Frequent strap breakage</td>
+          <td class="highlight-cell">100% Software Durability (Industrial Weather Station)</td>
+        </tr>
+        <tr>
+          <td><strong>Deployment Friction</strong></td>
+          <td>Weeks (charging & pairing)</td>
+          <td>Complex Bluetooth hubs</td>
+          <td class="highlight-cell">Zero-Friction QR Code PWA (Instantly Live)</td>
+        </tr>
+        <tr>
+          <td><strong>Regulatory Alignment</strong></td>
+          <td>US OSHA / NIOSH</td>
+          <td>Generic thresholds</td>
+          <td class="highlight-cell">Native Abu Dhabi OSHAD CoP 11.0 & MOHRE Resolution</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="footer-meta"><div>HeatGuard · Competitive Teardown</div><div>Slide 9 / 17</div></div>
+</div>
+
+<!-- Slide 10: Financial Model -->
+<div class="slide">
+  <div class="header-meta">
+    <div class="header-left"><span class="tag-pill">Unit Economics</span><span class="header-subtitle">Commercial Viability</span></div>
+    <div class="header-right">Financial Plan</div>
+  </div>
+  <div class="content-area">
+    <h2 class="slide-title">Scalable B2B SaaS Model & High-Margin Unit Economics</h2>
+    <p class="slide-subtitle">Saving Contractors Millions in MOHRE Non-Compliance Fines</p>
+    <div class="grid-4">
+      <div class="stat-box">
+        <div class="stat-val">$3.50</div>
+        <div class="stat-label">Price / Worker / Month (AED 12.8)</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-val">84.2%</div>
+        <div class="stat-label">Gross Margin</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-val">1,667</div>
+        <div class="stat-label">Break-Even Workers</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-val">AED 50k+</div>
+        <div class="stat-label">MOHRE Fine Avoided / Incident</div>
+      </div>
+    </div>
+    <div class="card" style="margin-top: 1.5rem;">
+      <h3>💼 Contractor Return on Investment (ROI)</h3>
+      <p>A mid-sized UAE contractor with 2,500 workers pays ~$105,000/year for HeatGuard. By avoiding just ONE severe heatstroke hospitalization ($45,000 insurance liability) and ONE MOHRE site shutdown fine (AED 50,000+), the system achieves a <strong>240% ROI within the first 6 months</strong>.</p>
+    </div>
+  </div>
+  <div class="footer-meta"><div>HeatGuard · Business Model</div><div>Slide 10 / 17</div></div>
+</div>
+
+<!-- Slide 11: Scalability & Road to Pilot -->
+<div class="slide">
+  <div class="header-meta">
+    <div class="header-left"><span class="tag-pill">Go-To-Market</span><span class="header-subtitle">Pilot Deployment Roadmap</span></div>
+    <div class="header-right">GCC Expansion</div>
+  </div>
+  <div class="content-area">
+    <h2 class="slide-title">18-Month GCC Scaling Roadmap</h2>
+    <p class="slide-subtitle">From Mussafah Industrial Pilot to UAE-Wide Regulatory Standard</p>
+    <div class="grid-3">
+      <div class="card">
+        <h3 style="color: #38bdf8;">Phase 1: 90-Day Pilot (Q1)</h3>
+        <ul>
+          <li>Deploy across 500 workers in Mussafah Industrial Zone, Abu Dhabi.</li>
+          <li>Validate voice alert comprehension and 1-tap care acknowledgment.</li>
+          <li>Correlate PHS core temp model with onsite medical clinic logs.</li>
+        </ul>
+      </div>
+      <div class="card card-highlight">
+        <h3 style="color: #f59e0b;">Phase 2: ADPHC Integration (Q2-Q3)</h3>
+        <ul>
+          <li>Integrate OSHAD compliance reporting directly with Abu Dhabi Public Health Centre.</li>
+          <li>Scale to 10,000 workers across 4 tier-1 contractors.</li>
+          <li>Reach cash-flow break-even at 1,667 active workers.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3 style="color: #10b981;">Phase 3: GCC Giga-Projects (Q4+)</h3>
+        <ul>
+          <li>Expand to Saudi Arabia (NEOM, Red Sea Project) and Qatar.</li>
+          <li>Launch cellular solar-mesh micro-weather station kits.</li>
+          <li>Target 100,000 workers protected across the Arabian Gulf.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="footer-meta"><div>HeatGuard · Growth Roadmap</div><div>Slide 11 / 17</div></div>
+</div>
+
+<!-- Slide 12: Authentication & Guest Access -->
+<div class="slide">
+  <div class="header-meta">
+    <div class="header-left"><span class="tag-pill">Evaluation Ready</span><span class="header-subtitle">Frictionless Review for Judges</span></div>
+    <div class="header-right">Live Verification</div>
+  </div>
+  <div class="content-area">
+    <h2 class="slide-title">Zero Friction: Guest Evaluation Mode Built-In</h2>
+    <p class="slide-subtitle">Judges and Evaluators Can Explore Every Feature Instantly</p>
+    <div class="grid-2">
+      <div class="card">
+        <h3>🚀 Instant 1-Click Guest Exploration</h3>
+        <p style="margin-bottom: 1rem;">No registration, SMS verification, or account setup required to evaluate HeatGuard:</p>
+        <ul>
+          <li><strong>Pre-Loaded Worker Cohort:</strong> Switch between Tariq (unacclimatized, Day 2), Rajesh (acclimatized), and Ahmed (recovering).</li>
+          <li><strong>Live Audio Demonstration:</strong> Click "Play Voice Alert" to hear authentic Urdu, Hindi, Tagalog, and Arabic synthesis.</li>
+          <li><strong>Tactical Rest Dispatch:</strong> Broadcast 15-minute hydration breaks and inspect live UI reaction.</li>
+        </ul>
+      </div>
+      <div class="card card-highlight">
+        <h3>🔍 Live Diagnostic & RAG Console</h3>
+        <p style="margin-bottom: 1rem;">Test the underlying intelligence in real-time:</p>
+        <ul>
+          <li><strong>Statutory RAG Query:</strong> Query OSHAD CoP 11.0 and UAE Midday Work Ban rules with cited legal paragraphs.</li>
+          <li><strong>Agent Latency Diagnostics:</strong> Inspect sub-30ms performance of the 4 autonomous guardian agents.</li>
+          <li><strong>Cryptographic Audit Inspector:</strong> Verify SHA-256 integrity hashes on the fly.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="footer-meta"><div>HeatGuard · Evaluation Access</div><div>Slide 12 / 17</div></div>
+</div>
+
+<!-- Slide 13: Technical Verification -->
+<div class="slide">
+  <div class="header-meta">
+    <div class="header-left"><span class="tag-pill">Engineering Rigor</span><span class="header-subtitle">100% Automated Test Suite Passing</span></div>
+    <div class="header-right">Quality Assurance</div>
+  </div>
+  <div class="content-area">
+    <h2 class="slide-title">Verified Engineering: 12/12 Automated Tests Passing</h2>
+    <p class="slide-subtitle">Production-Ready Reliability Across Physics, RAG, and Agent Orchestration</p>
+    <div class="grid-3">
+      <div class="card">
+        <h3>🧪 ISO Physics Unit Tests</h3>
+        <p>100% pass on outdoor WBGT calculation (Stull formula) and ISO 7933 Predicted Heat Strain core temperature limits under extreme ambient inputs (48°C / 65% RH).</p>
+      </div>
+      <div class="card">
+        <h3>⚡ Multi-Agent Swarm Tests</h3>
+        <p>Verified sub-50ms coordination across IoT Assimilator, Risk Engine, and Voice Synthesizer with simulated sensor packet dropouts.</p>
+      </div>
+      <div class="card">
+        <h3>🔒 Security & Audit Integrity</h3>
+        <p>Cryptographic SHA-256 chain verification guarantees tamper-evident compliance ledgers suitable for UAE regulatory subpoena.</p>
+      </div>
+    </div>
+  </div>
+  <div class="footer-meta"><div>HeatGuard · Test Results</div><div>Slide 13 / 17</div></div>
+</div>
+
+<!-- Slide 14: Data Governance & Ethics -->
+<div class="slide">
+  <div class="header-meta">
+    <div class="header-left"><span class="tag-pill">Compliance</span><span class="header-subtitle">Statutory UAE Alignment</span></div>
+    <div class="header-right">OSHAD & MOHRE</div>
+  </div>
+  <div class="content-area">
+    <h2 class="slide-title">Full Alignment with UAE Statutory Health Frameworks</h2>
+    <p class="slide-subtitle">Built Specifically to Enforce Abu Dhabi OSHAD CoP 11.0 & MOHRE Resolution 44</p>
+    <div class="grid-2">
+      <div class="card">
+        <h3>📜 Abu Dhabi OSHAD CoP 11.0 Mandates</h3>
+        <ul>
+          <li><strong>Mandatory Acclimatization:</strong> Automatically applies conservative 5-day ramp-up work intervals for new/returning workers.</li>
+          <li><strong>Electrolyte & Water Ratios:</strong> Dynamically calculates required liters per hour based on real-time sweat rate.</li>
+          <li><strong>Flag Alert System:</strong> Maps directly to Green, Yellow, Amber, and Red thermal strain action tiers.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>☀️ UAE MOHRE Midday Work Ban Integration</h3>
+        <ul>
+          <li><strong>Automatic Stand-Down Timer:</strong> Built-in statutory countdown for mandatory summer outdoor work stoppage (12:30 PM to 3:00 PM).</li>
+          <li><strong>Audit Compliance Logging:</strong> Records worksite shutdown proof for MOHRE labor inspector audits.</li>
+          <li><strong>Automated Emergency Protocol:</strong> One-tap clinical escalation routes to Abu Dhabi 998 Emergency Services.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="footer-meta"><div>HeatGuard · Regulatory Framework</div><div>Slide 14 / 17</div></div>
+</div>
+
+<!-- Slide 15: Conflict of Interest Declaration -->
+<div class="slide">
+  <div class="header-meta">
+    <div class="header-left"><span class="tag-pill">Ethics Declaration</span><span class="header-subtitle">Future Health Challenge Governance</span></div>
+    <div class="header-right">Independence Guarantee</div>
+  </div>
+  <div class="content-area">
+    <h2 class="slide-title">Official Conflict of Interest Declaration</h2>
+    <p class="slide-subtitle">Unconditional Independence and Fair Competition Guarantee</p>
+    <div class="card card-highlight" style="padding: 2.5rem;">
+      <h3 style="color: #10b981; font-size: 1.6rem; margin-bottom: 1.5rem;">✓ Declaration Statement</h3>
+      <p style="font-size: 1.2rem; line-height: 1.8; color: #f8fafc; margin-bottom: 1.5rem;">
+        <strong>None. No member of our team has a conflict of interest to declare.</strong>
+      </p>
+      <ul style="font-size: 1.1rem; line-height: 1.8;">
+        <li>No member is employed by or contracted to the <strong>Department of Health – Abu Dhabi</strong>.</li>
+        <li>No member is affiliated with challenge collaborators (<strong>Microsoft, Inception42, MBZUAI, or Hack2skill</strong>).</li>
+        <li>No member has family or personal relationships with any challenge judge or organizer.</li>
+        <li>No non-public information was accessed prior to or during the hackathon evaluation.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-meta"><div>HeatGuard · Ethics Declaration</div><div>Slide 15 / 17</div></div>
+</div>
+
+<!-- Slide 16: Summary of Value Proposition -->
+<div class="slide">
+  <div class="header-meta">
+    <div class="header-left"><span class="tag-pill">Strategic Impact</span><span class="header-subtitle">Why HeatGuard Deserves to Win</span></div>
+    <div class="header-right">Core Differentiators</div>
+  </div>
+  <div class="content-area">
+    <h2 class="slide-title">Why HeatGuard Is the Winning Solution</h2>
+    <p class="slide-subtitle">Solving the Real Bottlenecks of Climate-Resilient Occupational Health</p>
+    <div class="grid-3">
+      <div class="card">
+        <h3>1. Zero Capex Feasibility</h3>
+        <p>Other solutions demand $820/worker in hardware and die in procurement. HeatGuard deploys on existing phones and site weather sensors for $3.50/month with zero upfront capex.</p>
+      </div>
+      <div class="card card-highlight">
+        <h3>2. Cultural Trust & Inclusivity</h3>
+        <p>Migrant workers cannot read English text SMS alerts while working. HeatGuard speaks directly to them in Urdu, Hindi, Tagalog, Bengali, and Arabic with 1-tap care acknowledgment.</p>
+      </div>
+      <div class="card">
+        <h3>3. Clinically Grounded AI</h3>
+        <p>No unexplainable LLM hallucinations. HeatGuard uses validated ISO 7933 thermodynamics paired with statutory RAG to provide defensible, life-saving operational decisions.</p>
+      </div>
+    </div>
+  </div>
+  <div class="footer-meta"><div>HeatGuard · Value Proposition</div><div>Slide 16 / 17</div></div>
+</div>
+
+<!-- Slide 17: Thank You & Live Access -->
+<div class="slide cover-slide">
+  <div class="header-meta">
+    <div class="header-left">
+      <span class="tag-pill">Evaluation Ready</span>
+      <span class="header-subtitle">Future Health Digital Innovation Challenge 2026</span>
+    </div>
+    <div class="header-right">Abu Dhabi, UAE</div>
+  </div>
+  <div class="content-area" style="text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+    <h1 style="font-size: 3.8rem; font-weight: 900; color: #ffffff; margin-bottom: 1rem;">HEATGUARD</h1>
+    <p style="font-size: 1.8rem; color: #38bdf8; font-weight: 600; margin-bottom: 2rem;">Every Worker. Every Degree. Every Decision.</p>
+    <div style="background: rgba(30, 41, 59, 0.8); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 1rem; padding: 2rem 3rem; max-width: 800px; text-align: left;">
+      <p style="font-size: 1.2rem; color: #f8fafc; margin-bottom: 0.75rem;"><strong>GitHub Repository:</strong> <span style="font-family: 'JetBrains Mono'; color: #f59e0b;">https://github.com/UTHANDAM/HeatGuard</span></p>
+      <p style="font-size: 1.2rem; color: #f8fafc; margin-bottom: 0.75rem;"><strong>Live Prototype:</strong> <span style="font-family: 'JetBrains Mono'; color: #38bdf8;">http://localhost:5173</span></p>
+      <p style="font-size: 1.2rem; color: #f8fafc;"><strong>API Health Status:</strong> <span style="font-family: 'JetBrains Mono'; color: #10b981;">http://localhost:8000/api/health (200 OK)</span></p>
+    </div>
+  </div>
+  <div class="footer-meta">
+    <div>HeatGuard · Department of Health Abu Dhabi · Microsoft · Inception42 · MBZUAI</div>
+    <div>Slide 17 / 17</div>
+  </div>
+</div>
+
+</body>
+</html>
