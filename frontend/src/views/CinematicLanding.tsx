@@ -7,7 +7,6 @@ import {
   ArrowRight,
   Activity,
   Users,
-  FileText,
   Volume2,
   DollarSign,
   TrendingDown,
@@ -21,7 +20,7 @@ interface CinematicLandingProps {
   telemetry: EnvironmentalTelemetry | null;
   selectedSite: string;
   heatWave: number;
-  onNavigate: (view: 'worker' | 'supervisor' | 'submission') => void;
+  onNavigate: (view: 'worker' | 'supervisor' | 'agents') => void;
 }
 
 export const CinematicLanding: React.FC<CinematicLandingProps> = ({
@@ -198,11 +197,11 @@ export const CinematicLanding: React.FC<CinematicLandingProps> = ({
                 </button>
 
                 <button
-                  onClick={() => onNavigate('submission')}
+                  onClick={() => onNavigate('agents')}
                   className="px-5 py-3.5 rounded-xl bg-slate-900/60 hover:bg-slate-800/80 text-slate-300 font-semibold text-sm border border-slate-800 flex items-center gap-2 transition cursor-pointer"
                 >
-                  <FileText className="w-4 h-4 text-slate-400" />
-                  <span>17-Slide H2S Deck</span>
+                  <Cpu className="w-4 h-4 text-amber-400" />
+                  <span>AI Swarm & RAG</span>
                 </button>
               </div>
 
@@ -569,8 +568,8 @@ export const CinematicLanding: React.FC<CinematicLandingProps> = ({
                   <span className="text-emerald-400 font-black font-mono">84.2%</span>
                 </div>
                 <div className="border-l border-slate-800 pl-4">
-                  <span className="text-slate-400 block text-[10px] uppercase font-bold">H2S Prize Impact</span>
-                  <span className="text-amber-400 font-bold">$105,000 Capitalization Runway</span>
+                  <span className="text-slate-400 block text-[10px] uppercase font-bold">Capital Efficiency</span>
+                  <span className="text-amber-400 font-bold">$105,000 Seed Runway</span>
                 </div>
               </div>
 
@@ -588,7 +587,7 @@ export const CinematicLanding: React.FC<CinematicLandingProps> = ({
             Explore the Live Operating System
           </h2>
           <p className="text-slate-400 text-xs sm:text-sm mt-1">
-            Jump directly into either operational surface or examine the official hackathon submission materials.
+            Jump directly into frontline worker protection, supervisor fleet dispatch, or autonomous AI swarm telemetry.
           </p>
         </div>
 
@@ -638,21 +637,21 @@ export const CinematicLanding: React.FC<CinematicLandingProps> = ({
 
           {/* Surface 3 */}
           <div
-            onClick={() => onNavigate('submission')}
+            onClick={() => onNavigate('agents')}
             className="bg-slate-900/80 hover:bg-slate-900 border border-slate-800 hover:border-amber-500/50 rounded-2xl p-6 cursor-pointer transition transform hover:-translate-y-1 shadow-xl group"
           >
             <div className="flex items-center justify-between mb-4">
               <div className="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400 group-hover:scale-110 transition">
-                <FileText className="w-5 h-5" />
+                <Cpu className="w-5 h-5" />
               </div>
               <ChevronRight className="w-5 h-5 text-slate-400 group-hover:text-amber-400 transition" />
             </div>
-            <h3 className="text-lg font-bold text-white mb-1">17-Slide H2S Pitch Deck</h3>
+            <h3 className="text-lg font-bold text-white mb-1">AI Swarm & Statutory RAG</h3>
             <p className="text-xs text-slate-400 mb-4">
-              Review all 17 presentation slides matching the official Hack2skill template, plus exact copy-paste portal answers.
+              Live telemetry diagnostics, sub-30ms multi-agent coordination, statutory RAG console on OSHAD CoP 11.0, and verifiable SHA-256 audit ledger.
             </p>
             <span className="text-xs font-bold text-amber-400 flex items-center gap-1">
-              <span>Inspect Pitch Deck</span>
+              <span>Explore AI Swarm & RAG</span>
               <ArrowRight className="w-3.5 h-3.5" />
             </span>
           </div>

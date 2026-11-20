@@ -4,13 +4,12 @@ import { CinematicLanding } from './views/CinematicLanding';
 import { WorkerPWA } from './views/WorkerPWA';
 import { SupervisorDeck } from './views/SupervisorDeck';
 import { AgentDiagnostics } from './views/AgentDiagnostics';
-import { SubmissionViewer } from './views/SubmissionViewer';
 import type { EnvironmentalTelemetry, WorkerProfile } from './types';
 import { fetchLiveTelemetry, fetchWorkers } from './services/api';
 import { Shield, Sparkles } from 'lucide-react';
 
 export function App() {
-  const [currentView, setCurrentView] = useState<'landing' | 'worker' | 'supervisor' | 'agents' | 'submission'>('landing');
+  const [currentView, setCurrentView] = useState<'landing' | 'worker' | 'supervisor' | 'agents'>('landing');
   const [selectedSite, setSelectedSite] = useState<string>('mussafah');
   const [heatWave, setHeatWave] = useState<number>(1.05);
   const [telemetry, setTelemetry] = useState<EnvironmentalTelemetry | null>(null);
@@ -78,10 +77,6 @@ export function App() {
 
           {currentView === 'agents' && (
             <AgentDiagnostics />
-          )}
-
-          {currentView === 'submission' && (
-            <SubmissionViewer />
           )}
         </main>
       </div>
